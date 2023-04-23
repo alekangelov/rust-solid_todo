@@ -143,7 +143,6 @@ const LayoutWrapper = styled("div")`
       }
     }
     &-body {
-      min-height: 200vh;
     }
   }
 `;
