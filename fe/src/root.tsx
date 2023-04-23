@@ -23,6 +23,14 @@ const GlobalStyles = createGlobalStyles`
   --surface: #fff;
   --on-surface: #000;
   --on-primary: #fff;
+}
+
+.dark:root {
+  --primary: #0094FF;
+  --background: #0c0c0c;
+  --surface: #000;
+  --on-surface: #fff;
+  --on-primary: #fff;
 } 
   body {
     font-family: "Inter Tight", sans-serif;
@@ -30,6 +38,7 @@ const GlobalStyles = createGlobalStyles`
 font-size: 14px;
     background: var(--background);
     padding: 0;
+color: var(--on-surface);
   }
 
   * {

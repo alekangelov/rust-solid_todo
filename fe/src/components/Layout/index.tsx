@@ -1,10 +1,18 @@
 import { createQuery } from "@tanstack/solid-query";
-import { For, JSX, ParentProps } from "solid-js";
+import { For, JSX, ParentProps, createEffect } from "solid-js";
 import { styled } from "solid-styled-components";
 import { authFns } from "~/data";
 import { Logo } from "../Logo";
-import { FiClipboard, FiDatabase, FiLogOut, FiUser } from "solid-icons/fi";
+import {
+  FiClipboard,
+  FiDatabase,
+  FiLogOut,
+  FiMoon,
+  FiSun,
+  FiUser,
+} from "solid-icons/fi";
 import { A, useMatch } from "@solidjs/router";
+import { createStoredSignal } from "~/state/storage";
 
 const SidebarWrapper = styled("div")`
   padding: 24px;
@@ -127,6 +135,12 @@ const LayoutWrapper = styled("div")`
       border-bottom: 1px solid rgba(0, 0, 0, 0.1);
       position: sticky;
       top: 0;
+      .right {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        justify-content: space-between;
+      }
     }
     &-body {
       min-height: 200vh;
@@ -163,6 +177,40 @@ const Avatar = (props: { src?: string | null; size?: "sm" | "md" | "lg" }) => {
   return <AWrap size={props.size || "md"}>{child}</AWrap>;
 };
 
+const Button = styled("button")`
+  all: unset;
+  width: 64px;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--surface);
+  background: var(--on-surface);
+  font-size: 24px;
+  border-radius: 12px;
+  cursor: pointer;
+`;
+
+function DarkModeToggle() {
+  const [mode, setMode] = createStoredSignal<"dark" | "light">("mode", "light");
+  createEffect(() => {
+    if (mode() == "light") {
+      document.documentElement.classList.remove("dark");
+    } else {
+      document.documentElement.classList.add("dark");
+    }
+  });
+  return (
+    <Button
+      onClick={() =>
+        setMode((oldMode) => (oldMode == "light" ? "dark" : "light"))
+      }
+    >
+      {mode() == "dark" ? <FiSun /> : <FiMoon />}
+    </Button>
+  );
+}
+
 export function Layout(props: ParentProps<{ name: string }>) {
   const me = createQuery(() => ["me"], authFns.me);
   const profile = createQuery(
@@ -175,8 +223,9 @@ export function Layout(props: ParentProps<{ name: string }>) {
       <div class="content">
         <div class="content-header">
           <span class="route-name">{props.name}</span>
-          <span>
+          <span class="right">
             <Avatar src={profile.data?.avatar} size="lg" />
+            <DarkModeToggle />
           </span>
         </div>
         <div class="content-body">{props.children}</div>
