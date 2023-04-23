@@ -5,7 +5,7 @@ import solidSvg from "vite-plugin-solid-svg";
 export default defineConfig({
   plugins: [
     solid({
-      ssr: true,
+      ssr: false,
     }),
     solidSvg(),
   ],

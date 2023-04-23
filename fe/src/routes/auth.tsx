@@ -160,6 +160,12 @@ export default function LoginRoute() {
                 data.get("password_confirmation") as string,
               ];
               if (isRegister()) {
+                authFns
+                  .register({ username, password, password_confirmation })
+                  .then((e) => e?.access_token && login(e?.access_token))
+                  .catch((e) =>
+                    notifications.create({ type: "error", message: e })
+                  );
                 return;
               }
               authFns

@@ -13,6 +13,7 @@ import {
 } from "solid-start";
 import { createGlobalStyles } from "solid-styled-components";
 import { TodoToaster } from "./components/toasts";
+import { QueryClient, QueryClientProvider } from "@tanstack/solid-query";
 
 const GlobalStyles = createGlobalStyles`
   @import url('https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
@@ -37,6 +38,7 @@ font-size: 14px;
 `;
 
 export default function Root() {
+  const queryClient = new QueryClient();
   return (
     <Html lang="en">
       <Head>
@@ -48,11 +50,13 @@ export default function Root() {
         <TodoToaster />
         <GlobalStyles />
         <Suspense>
-          <ErrorBoundary>
-            <Routes>
-              <FileRoutes />
-            </Routes>
-          </ErrorBoundary>
+          <QueryClientProvider client={queryClient}>
+            <ErrorBoundary>
+              <Routes>
+                <FileRoutes />
+              </Routes>
+            </ErrorBoundary>
+          </QueryClientProvider>
         </Suspense>
         <Scripts />
       </Body>

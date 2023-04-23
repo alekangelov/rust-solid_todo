@@ -24,6 +24,7 @@
   "dependencies": {
     "@solidjs/meta": "^0.28.2",
     "@solidjs/router": "^0.8.2",
+    "@tanstack/solid-query": "^4.29.1",
     "solid-headless": "^0.13.1",
     "solid-icons": "^1.0.4",
     "solid-js": "^1.7.2",
