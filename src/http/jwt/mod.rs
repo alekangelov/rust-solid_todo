@@ -1,7 +1,7 @@
 use axum::{
     async_trait,
     extract::{FromRequest, FromRequestParts},
-    http::{request::Parts, Request},
+    http::request::Parts,
     TypedHeader,
 };
 use chrono::{Duration, Utc};
