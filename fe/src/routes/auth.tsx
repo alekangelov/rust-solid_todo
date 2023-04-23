@@ -66,6 +66,7 @@ const Styles = {
       margin-bottom: 24px;
     }
     input {
+      color: var(--on-surface);
       background: var(--background);
       border: none;
       border-radius: 8px;
