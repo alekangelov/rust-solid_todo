@@ -2564,11 +2564,6 @@ lru-cache@^5.1.1:
   dependencies:
     yallist "^3.0.2"
 
-lucide-solid@^0.171.0:
-  version "0.171.0"
-  resolved "https://registry.yarnpkg.com/lucide-solid/-/lucide-solid-0.171.0.tgz#522477c8fad29bc2fd56b353114a46be10206439"
-  integrity sha512-bz8Id8m86RhHSx9kMiKS1FDv8K6isHoVMlPI6s323KViS1SJaZeH3fgtgi3ybv31QiLafO0XP3+bj/e7UZ03ew==
-
 magic-string@^0.27.0:
   version "0.27.0"
   resolved "https://registry.yarnpkg.com/magic-string/-/magic-string-0.27.0.tgz#e4a3413b4bab6d98d2becffd48b4a257effdbbf3"
@@ -3252,6 +3247,11 @@ solid-headless@^0.13.1:
   dependencies:
     solid-use "^0.6.2"
 
+solid-icons@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/solid-icons/-/solid-icons-1.0.4.tgz#13eb122fe927110e2463c96d226492fb837a9802"
+  integrity sha512-gJTp4in3+OYCs9WvDkSLt4Los2unR3Uoder8wjh15GsfP20xiNOLfPTJllXmn+fI8+k3x7bRYtLGIgWd9fUQug==
+
 solid-js@^1.7.2:
   version "1.7.3"
   resolved "https://registry.yarnpkg.com/solid-js/-/solid-js-1.7.3.tgz#3e2e2ce7f2415336f5c96668f9524ad51f6a718b"
@@ -3436,7 +3436,7 @@ supports-preserve-symlinks-flag@^1.0.0:
   resolved "https://registry.yarnpkg.com/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz#6eda4bd344a3c94aea376d4cc31bc77311039e09"
   integrity sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==
 
-svgo@^2.7.0:
+svgo@^2.3.1, svgo@^2.7.0:
   version "2.8.0"
   resolved "https://registry.yarnpkg.com/svgo/-/svgo-2.8.0.tgz#4ff80cce6710dc2795f0c7c74101e6764cfccd24"
   integrity sha512-+N/Q9kV1+F+UeWYoSiULYo4xYSDQlTgb+ayMobAXPwMnLvop7oxKMo9OzIrX5x3eS4L4f2UHhc9axXwY8DpChg==
@@ -3620,6 +3620,13 @@ vite-plugin-solid-styled@^0.8.1:
   dependencies:
     "@babel/core" "^7.21.3"
     "@rollup/pluginutils" "^5.0.2"
+
+vite-plugin-solid-svg@^0.6.1:
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/vite-plugin-solid-svg/-/vite-plugin-solid-svg-0.6.1.tgz#f0ae10ef26b0907b17c279ed398aac237c755157"
+  integrity sha512-tKprBmA1h4lofRnZ/oi8SJQ1vdL0U+H2gVo7ZL+PKNIVeOn2A0M3t83A2xsMZjmboIZ17Y27xrugLN+phmdb6Q==
+  dependencies:
+    svgo "^2.3.1"
 
 vite-plugin-solid@^2.7.0:
   version "2.7.0"

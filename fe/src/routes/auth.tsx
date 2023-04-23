@@ -2,7 +2,9 @@ import { Show, createEffect, createMemo } from "solid-js";
 import { useMatch, useSearchParams } from "solid-start";
 import { styled } from "solid-styled-components";
 import { Logo } from "~/components/Logo";
-import auth from "~/state/auth";
+import { notifications } from "~/components/toasts";
+import { authFns } from "~/data";
+import auth, { useNoLoginRoute } from "~/state/auth";
 
 const Styles = {
   Main: styled("div")`
@@ -113,13 +115,13 @@ const stringToBoolean = (str?: string) => {
 };
 
 const copy = {
-  ["true"]: {
+  ["false"]: {
     title: "Login",
     subtitle: "Welcome back! Login to continue.",
     subButton: "Don't have an account?",
     subSubButton: "Register!",
   },
-  ["false"]: {
+  ["true"]: {
     title: "Register",
     subtitle: "Welcome! Register to continue.",
     subButton: "Already have an account?",
@@ -132,8 +134,10 @@ const boolToString = (bool?: boolean): "true" | "false" =>
 
 export default function LoginRoute() {
   const [searchParams, setSearchParams] = useSearchParams();
+  useNoLoginRoute();
   const isRegister = createMemo(() => stringToBoolean(searchParams.register));
   const { login } = auth;
+  console.log(import.meta.env);
   return (
     <Styles.Main>
       <Styles.Wrapper>
@@ -151,11 +155,22 @@ export default function LoginRoute() {
               e.preventDefault();
               const data = new FormData(e.currentTarget);
               const [username, password, password_confirmation] = [
-                data.get("username"),
-                data.get("password"),
-                data.get("password_confirmation"),
+                data.get("username") as string,
+                data.get("password") as string,
+                data.get("password_confirmation") as string,
               ];
-              console.log({ username, password, password_confirmation });
+              if (isRegister()) {
+                return;
+              }
+              authFns
+                .login({ username, password })
+                .then((e) => e?.access_token && login(e?.access_token))
+                .catch((e) =>
+                  notifications.create({
+                    type: "error",
+                    message: e,
+                  })
+                );
             }}
           >
             <input
@@ -168,11 +183,13 @@ export default function LoginRoute() {
               required
               name="password"
               type="password"
+              minLength={6}
               placeholder="Password"
             />
-            <Show when={!isRegister()}>
+            <Show when={isRegister()}>
               <input
                 required
+                minLength={6}
                 name="password_confirmation"
                 type="password"
                 placeholder="Password Confirmation"

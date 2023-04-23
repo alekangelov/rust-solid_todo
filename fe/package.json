@@ -18,13 +18,14 @@
     "typescript": "^5.0.4",
     "typescript-styled-plugin": "^0.18.3",
     "vite": "^4.1.4",
-    "vite-plugin-solid-styled": "^0.8.1"
+    "vite-plugin-solid-styled": "^0.8.1",
+    "vite-plugin-solid-svg": "^0.6.1"
   },
   "dependencies": {
     "@solidjs/meta": "^0.28.2",
     "@solidjs/router": "^0.8.2",
-    "lucide-solid": "^0.171.0",
     "solid-headless": "^0.13.1",
+    "solid-icons": "^1.0.4",
     "solid-js": "^1.7.2",
     "solid-start": "^0.2.26",
     "solid-styled": "^0.8.1",
