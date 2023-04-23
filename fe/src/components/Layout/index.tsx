@@ -4,16 +4,19 @@ import { styled } from "solid-styled-components";
 import { authFns } from "~/data";
 import { Logo } from "../Logo";
 import { FiClipboard, FiDatabase, FiLogOut, FiUser } from "solid-icons/fi";
-import { A } from "@solidjs/router";
+import { A, useMatch } from "@solidjs/router";
 
 const SidebarWrapper = styled("div")`
   padding: 24px;
   width: 360px;
   max-width: 30%;
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: stretch;
+  position: sticky;
+  top: 0;
+  left: 0;
   & > div {
     background: var(--surface);
     width: 100%;
@@ -53,7 +56,8 @@ const SidebarWrapper = styled("div")`
       transition: 0.2s ease-out color, 0.2s ease-out background;
       padding: 12px;
       border-radius: 8px;
-      &:hover {
+      &:hover,
+      &.active {
         background: var(--primary);
         color: var(--on-primary);
       }
@@ -88,14 +92,17 @@ function Sidebar() {
         </div>
         <ul>
           <For each={links}>
-            {(item) => (
-              <li>
-                <A href={item.href || ""}>
-                  {item.icon && <span class="icon">{item.icon}</span>}
-                  <span>{item.title}</span>
-                </A>
-              </li>
-            )}
+            {(item) => {
+              const match = useMatch(() => item.href || "/");
+              return (
+                <li>
+                  <A href={item.href || ""}>
+                    {item.icon && <span class="icon">{item.icon}</span>}
+                    <span>{item.title}</span>
+                  </A>
+                </li>
+              );
+            }}
           </For>
         </ul>
       </div>
@@ -107,6 +114,7 @@ const LayoutWrapper = styled("div")`
   display: flex;
   .content {
     flex: 1;
+    padding-right: 24px;
     .route-name {
       font-size: 24px;
       font-weight: 900;
@@ -116,6 +124,12 @@ const LayoutWrapper = styled("div")`
       display: flex;
       align-items: center;
       justify-content: space-between;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+    }
+    &-body {
+      min-height: 200vh;
     }
   }
 `;
@@ -162,7 +176,7 @@ export function Layout(props: ParentProps<{ name: string }>) {
         <div class="content-header">
           <span class="route-name">{props.name}</span>
           <span>
-            <Avatar src={profile.data?.avatar} size="md" />
+            <Avatar src={profile.data?.avatar} size="lg" />
           </span>
         </div>
         <div class="content-body">{props.children}</div>
